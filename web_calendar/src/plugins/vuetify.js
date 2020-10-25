@@ -4,4 +4,11 @@ import Vuetify from 'vuetify/lib';
 Vue.use(Vuetify);
 
 export default new Vuetify({
+    icons: {
+        iconfont: 'mdi', // default - only for display purposes
+        values: {
+            cancel: 'mdi-close',
+            confirm: 'mdi-check-bold'
+        }
+    }
 });

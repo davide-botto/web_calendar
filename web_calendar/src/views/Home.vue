@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <v-row>
+  <div class="home" style="height: 100%; width: 100%">
+    <v-row style="height: 10%">
       <v-col cols="3">
         <v-btn icon @click="previous()">
           <v-icon>mdi-chevron-left</v-icon>
@@ -20,20 +20,31 @@
         ></v-select>
       </v-col>
     </v-row>
-    <v-calendar
-      ref="calendar"
-      v-model="value"
-      :now="now"
-      :type="type.value"
-      :weekday-format="getDayName"
-      :weekdays="weekdays"
-      :events="events"
-      color="primary"
-    ></v-calendar>
+    <v-row style="height: 90%">
+      <v-col style="height: 100%">
+        <div style="height: 680px">
+          <v-calendar
+            ref="calendar"
+            v-model="value"
+            :now="now"
+            :type="type.value"
+            :weekday-format="getDayName"
+            :weekdays="weekdays"
+            :events="events"
+            :event-color="getEventColor"
+            @click:event="editDeadline"
+            color="primary"
+          ></v-calendar>
+        </div>
+      </v-col>
+    </v-row>
+    <DeadlineDialog :dialog="dialog"/>
   </div>
 </template>
 
 <script>
+import { EventBus } from '../main';
+import DeadlineDialog from "../components/DeadlineDialog";
 // @ is an alias to /src
 const dayNames = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
 const monthNames = [
@@ -63,11 +74,18 @@ export default {
       weekdays: [1, 2, 3, 4, 5, 6, 0],
       value: "",
       events: [],
+      dialog: {
+        width: 600,
+        show_dialog_editDeadline: false
+      }
     };
   },
   mounted() {
     this.$store
       .dispatch("deadlines/act_get")
+      .then(() => {
+        return this.$store.dispatch("categories/act_get");
+      })
       .then(() => {
         this.value = this.today;
         this.events = this.$store.getters["deadlines/get_deadlines"];
@@ -91,6 +109,23 @@ export default {
       }
       return "" + value;
     },
+    getEventColor(event) {
+      console.log(this.deadline_categories);
+      console.log("Event ", event);
+      let category = this.deadline_categories.find(
+        (el) => el.id == event.category
+      );
+      console.log("color ", category.color);
+      return category.color;
+    },
+    ////////////////////////
+    // DETTAGLI SCADENZA
+    ////////////////////////
+    editDeadline({nativeEvent, event}) {
+      console.log("Native event ", nativeEvent);
+      console.log("Event ", event);
+      EventBus.$emit("deadline_edit", event.id);
+    },
     //-----------------------
     // Nome giorno settimana
     //-----------------------
@@ -106,7 +141,7 @@ export default {
       let dateStart = new Date(date.getTime());
       let dateEnd = null;
       let weekday = date.getDay();
-      
+
       if (weekday == 0) {
         weekday = 7;
       }
@@ -212,5 +247,8 @@ export default {
       return timespanString;
     },
   },
+  components: {
+    DeadlineDialog
+  }
 };
 </script>

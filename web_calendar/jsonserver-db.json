@@ -1,15 +1,57 @@
 {
-    "scadenze": [
+    "deadlines": [
         {
             "id": 1,
             "name": "Bollo Panda",
-            "start": "2020-11-07"
+            "description": "Pagare bollo auto",
+            "start": "2020-11-05",
+            "category": 1
         },
         {
             "id": 2,
             "name": "Revisione attrezzatura",
-            "start": "2020-11-25 10:00",
-            "end": "2020-11-25 12:00"
+            "description": "Revisione traino camion",
+            "start": "2020-11-10 10:00",
+            "end": "2020-11-10 12:00",
+            "category": 2
+        },
+        {
+            "id": 3,
+            "name": "Certificato formazione",
+            "description": "Aggiornamento istruttore di scuola guida",
+            "start": "2020-11-12 09:00",
+            "end": "2020-11-12 10:00",
+            "category": 3
+        },
+        {
+            "id": 4,
+            "name": "Visite mediche",
+            "description": "",
+            "start": "2020-11-15 14:00",
+            "end": "2020-11-15 18:00",
+            "category": 4
+        }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "name": "mezzi",
+            "color": "#f57542"
+        },
+        {
+            "id": 2,
+            "name": "attrezzature",
+            "color": "#dd71f5"
+        },
+        {
+            "id": 3,
+            "name": "certificati formazione a patentini",
+            "color": "#6ec259"
+        },
+        {
+            "id": 4,
+            "name": "visite mediche",
+            "color": "#2f82c2"
         }
     ]
 }

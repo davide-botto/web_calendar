@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -38,23 +34,28 @@
     </v-app-bar>
 
     <v-main>
-     <v-container>
-       <router-view></router-view>
-     </v-container>
+      <v-container fluid fill-height>
+        <router-view></router-view>
+      </v-container>
     </v-main>
+    <LoaderDialog :dialog="dialog" />
   </v-app>
 </template>
 
 <script>
+import LoaderDialog from "./components/LoaderDialog";
 export default {
-  name: 'App',
+  name: "App",
 
-  
   data: () => ({
-    //
+    dialog: {
+      width: 500,
+      show_dialog_loader: false,
+    },
   }),
-  mounted() {
-  
+  mounted() {},
+  components: {
+    LoaderDialog
   }
 };
 </script>
