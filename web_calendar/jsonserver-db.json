@@ -1,0 +1,15 @@
+{
+    "scadenze": [
+        {
+            "id": 1,
+            "name": "Bollo Panda",
+            "start": "2020-11-07"
+        },
+        {
+            "id": 2,
+            "name": "Revisione attrezzatura",
+            "start": "2020-11-25 10:00",
+            "end": "2020-11-25 12:00"
+        }
+    ]
+}
